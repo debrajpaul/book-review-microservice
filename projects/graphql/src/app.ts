@@ -8,6 +8,6 @@ const yoga = createYoga({
 })
 
 const server = createServer(yoga)
-server.listen(4000, () => {
-  console.info('Server is running on http://localhost:4000/graphql')
+server.listen(4001, () => {
+  console.info('Server is running on http://localhost:4001/graphql')
 })

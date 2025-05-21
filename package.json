@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "api": "pnpm --filter projects/api dev",
-    "test":"pnpm --filter projects/api run test"
-
+    "test": "pnpm --filter projects/api run test"
   },
   "keywords": [],
   "repository": "git@github.com:debrajpaul/book-review-microservice.git",
@@ -15,7 +14,9 @@
   "packageManager": "pnpm@10.11.0",
   "dependencies": {
     "graphql": "^16.11.0",
-    "graphql-yoga": "^5.13.4"
+    "graphql-yoga": "^5.13.4",
+    "kafkajs": "^2.2.4",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

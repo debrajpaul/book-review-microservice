@@ -1,1 +1,1 @@
-module.exports = require('../jest.config.js')
+module.exports = require('../queue/jest.config.js')
