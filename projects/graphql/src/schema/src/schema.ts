@@ -9,6 +9,7 @@ export const resolvers = {
   },
   Mutation: {
     ...reviewResolvers.Mutation,
+    ...bookResolvers.Mutation,
   },
   Book: {
     ...bookResolvers.Book,
