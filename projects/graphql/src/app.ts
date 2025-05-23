@@ -1,16 +1,30 @@
 import { createServer } from "http";
 import { createYoga } from "graphql-yoga";
-import "dotenv/config";
+import { IGraphQLContext } from "@abstractions/index";
 import { logger } from "@utils/logger";
 import { schema } from "./schemas/schema";
 import { connectToMongo } from "@stores/connect";
+import { BookService } from "@services/book-service";
+import { KafkaClient, REVIEW_TOPIC } from '@queue/kafka';
+import "dotenv/config";
 
-const yoga = createYoga({
+const kafkaClient = new KafkaClient(
+  [process.env.KAFKA_BROKERS || "localhost:9092"],
+  "book-service"
+);
+const yoga = createYoga<IGraphQLContext>({
   schema,
   healthCheckEndpoint: "/live",
+  context: () =>{
+    return {
+       dataSources: {
+        bookService: new BookService(logger,kafkaClient,REVIEW_TOPIC)
+      }
+    }
+  }
 });
 connectToMongo();
 const server = createServer(yoga);
-server.listen(4002, () => {
-  logger.info("Server is running on http://localhost:4002/graphql");
+server.listen(process.env.PORT || 4004, () => {
+  logger.info(`Server is running on http://localhost:${process.env.PORT || 4004}/graphql`);
 });

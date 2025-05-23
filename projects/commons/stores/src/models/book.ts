@@ -1,13 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+import { IBook } from "@abstractions/index";
+import { ReviewSchema } from "./review";
 
-const ReviewSchema = new mongoose.Schema({
-  content: { type: String, required: true },
-});
+const BookSchema = new Schema<IBook>(
+  {
+    title: { type: String, required: true },
+    reviews: { type: [ReviewSchema], default: [] },
+  },
+  {
+    timestamps: true,
+    _id: true,
+  },
+);
 
-const BookSchema = new mongoose.Schema({
-  id: { type: mongoose.Schema.Types.ObjectId, auto: true },
-  title: { type: String, required: true },
-  reviews: [ReviewSchema],
-});
-
-export const BookModel = mongoose.model("Book", BookSchema);
+export const BookModel = mongoose.model<IBook>("Book", BookSchema);

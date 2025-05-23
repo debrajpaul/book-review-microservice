@@ -1,5 +1,5 @@
 {
-  "name": "projects/graphql",
+  "name": "projects/processor",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -7,7 +7,7 @@
     "lint": "eslint src --ext .ts",
     "coverage": "jest --coverage",
     "format": "prettier --write .",
-    "dev": "ts-node-dev --respawn --transpile-only --require tsconfig-paths/register src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only --require tsconfig-paths/register src/loader.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,5 @@
 export const reviewTypeDefs = /* GraphQL */ `
   type Review {
-    id: ID!
     content: String!
   }
 

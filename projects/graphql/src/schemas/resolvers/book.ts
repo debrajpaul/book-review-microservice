@@ -1,24 +1,23 @@
-import { BookModel } from "@stores/index";
+import { IGraphQLContext } from "@abstractions/index";
 
 export const bookResolvers = {
   Query: {
-    getBooks: async () => {
-      return BookModel.find();
+    getBooks: async (_: any, __: any, ctx: IGraphQLContext) => {
+      return ctx.dataSources.bookService.getAll();
     },
   },
   Book: {
     reviews: (parent: any) => parent.reviews || [],
   },
   Mutation: {
-    addBook: async (_: any, { book }: any) => {
-      const newBook = new BookModel(book);
-      return newBook.save();
+    addBook: async (_: any, { book }: any, ctx: IGraphQLContext) => {
+      return await ctx.dataSources.bookService.create(book.title);
     },
-    updateBook: async (_: any, { id, book }: any) => {
-      return BookModel.findByIdAndUpdate(id, book, { new: true });
+    updateBook: async (_: any, { id, book }: any, ctx: IGraphQLContext) => {
+      return ctx.dataSources.bookService.update(id, book);
     },
-    deleteBook: async (_: any, { id }: any) => {
-      return BookModel.findByIdAndDelete(id);
+    deleteBook: async (_: any, { id }: any, ctx: IGraphQLContext) => {
+      return ctx.dataSources.bookService.delete(id);
     },
   },
 };

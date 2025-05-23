@@ -1,43 +1,29 @@
-import { consumer, REVIEW_TOPIC } from "../../commons/queue/src/kafka";
-import { logger } from "../../commons/utils/src/logger";
-import { connectToMongo } from "../../commons/stores/src/connect";
-import { BookModel } from "../../commons/stores/src/models/book";
+import { logger } from "@utils/logger";
+import { connectToMongo } from "@stores/connect";
+import { KafkaClient, REVIEW_TOPIC } from "@queue/kafka";
+import { BookService } from "@services/book-service";
 import "dotenv/config";
 
 async function processReviews() {
-  connectToMongo();
-  await consumer.connect();
-  await consumer.subscribe({ topic: REVIEW_TOPIC, fromBeginning: true });
-
-  await consumer
-    .run({
-      eachMessage: async ({ message }) => {
-        try {
-          logger.info(`Received message: ${message.value?.toString()}`);
-          const { bookId, review } = JSON.parse(
-            message.value?.toString() || "{}",
-          );
-          review.content += " - Verified";
-          const book = await BookModel.findOne({ id: bookId.trim() });
-          if (!book) {
-            console.error(`Book not found: ${bookId}`);
-            logger.error(`Book not found: ${bookId}`);
-            return;
-          }
-
-          book.reviews.push(review);
-          await book.save();
-
-          console.log(`Saved verified review for book ${bookId}`);
-          logger.info(`Saved verified review for book ${bookId}`);
-        } catch (error) {
-          logger.error(`Error processing message: ${(error as Error).message}`);
-        }
-      },
-    })
-    .catch((e) => {
-      logger.error(`Error processing consumer: ${(e as Error).message}`);
+  try {
+    connectToMongo();
+    const kafkaClient = new KafkaClient(
+      [process.env.KAFKA_BROKERS || "localhost:9092"],
+      "book-service",
+    );
+    const bookService = new BookService(logger, kafkaClient, REVIEW_TOPIC);
+    await kafkaClient.connectConsumer();
+    await kafkaClient.subscribe(REVIEW_TOPIC, async (payload) => {
+      const { bookId, review } = payload;
+      await bookService.addReview(bookId, review);
     });
+  } catch (error) {
+    logger.error(
+      `Failed to process review message: ${(error as Error).message}`,
+    );
+    logger.error(`Startup failure: ${(error as Error).message}`);
+    process.exit(1);
+  }
 }
 
 processReviews();

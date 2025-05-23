@@ -1,6 +1,7 @@
 import { createSchema } from "graphql-yoga";
 import { bookTypeDefs, reviewTypeDefs } from "./typeDefs";
 import { bookResolvers, reviewResolvers } from "./resolvers";
+import { IGraphQLContext } from "@abstractions/index";
 
 export const resolvers = {
   Query: {
@@ -15,7 +16,7 @@ export const resolvers = {
   },
 };
 
-export const schema = createSchema({
+export const schema = createSchema<IGraphQLContext>({
   typeDefs: [bookTypeDefs, reviewTypeDefs],
   resolvers,
 });

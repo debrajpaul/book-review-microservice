@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "workspaces": [
     "project/graphql",
     "project/processor",
@@ -43,6 +42,7 @@
     "prettier": "^3.5.3",
     "ts-jest": "^29.3.4",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   }
 }
