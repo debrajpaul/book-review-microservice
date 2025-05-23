@@ -3,9 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
+  "workspaces": [
+    "project/graphql",
+    "project/processor",
+    "project/commons/*"
+  ],
   "scripts": {
-    "api": "pnpm --filter projects/api dev",
-    "test": "pnpm --filter projects/api run test"
+    "dev": "pnpm --parallel --filter graphql --filter processor run dev",
+    "test": "pnpm -r test",
+    "coverage": "pnpm -r coverage",
+    "lint": "pnpm -r lint",
+    "typecheck": "tsc -b",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "repository": "git@github.com:debrajpaul/book-review-microservice.git",
@@ -22,9 +32,15 @@
     "zod": "^3.25.20"
   },
   "devDependencies": {
+    "@eslint/js": "^9.27.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.19",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.27.0",
+    "eslint-plugin-jest": "^28.11.0",
     "jest": "^29.7.0",
+    "prettier": "^3.5.3",
     "ts-jest": "^29.3.4",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"

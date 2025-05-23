@@ -4,10 +4,18 @@
   "description": "",
   "scripts": {
     "dev": "ts-node-dev src/app.ts",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.11.0"
+  "packageManager": "pnpm@10.11.0",
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9"
+  }
 }

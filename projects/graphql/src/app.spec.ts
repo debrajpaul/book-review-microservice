@@ -1,8 +1,8 @@
-import { graphql } from 'graphql';
-import { schema } from '../../../commons/schema';
+import { graphql } from "graphql";
+import { schema } from "./schemas/schema";
 
-describe('GraphQL addReview mutation', () => {
-  it('adds a review to a book', async () => {
+describe("GraphQL addReview mutation", () => {
+  it("adds a review to a book", async () => {
     const mutation = `
       mutation {
         addReview(bookId: "1", review: { content: "Excellent read!" }) {
@@ -12,9 +12,9 @@ describe('GraphQL addReview mutation', () => {
       }
     `;
 
-    const result:any = await graphql({
+    const result: any = await graphql({
       schema,
-      source: mutation
+      source: mutation,
     });
 
     expect(result.errors).toBeUndefined();
