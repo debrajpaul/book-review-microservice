@@ -1,4 +1,5 @@
 import { logger } from "@utils/logger";
+import { GraphQLError } from "graphql";
 import { ReviewInputSchema } from "@validation/review";
 import { IGraphQLContext } from "@abstractions/index";
 
@@ -15,11 +16,22 @@ export const reviewResolvers = {
           logger.error(
             `Invalid review input: ${JSON.stringify(parsed.error.issues)}`,
           );
+          throw new GraphQLError("Invalid review input", {
+            extensions: {
+              code: "BAD_USER_INPUT",
+              details: parsed.error.issues,
+            },
+          });
         }
-        return ctx.dataSources.bookService.emitReview(bookId, review);
+        return ctx.dataSources.bookService.emitReview(bookId, parsed.data);
       } catch (error) {
         logger.error(`addReview failed: ${(error as Error).message}`);
-        throw new Error("Internal error while adding review");
+        throw new GraphQLError("Internal error while adding review", {
+          extensions: {
+            code: "INTERNAL_SERVER_ERROR",
+            originalMessage: (error as Error).message,
+          },
+        });
       }
     },
   },

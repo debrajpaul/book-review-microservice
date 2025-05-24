@@ -32,13 +32,17 @@ export class BookService implements IBookService {
   }
   public async update(
     bookId: string | Types.ObjectId,
-    book: IBook,
+    title: string,
   ): Promise<IBook | null> {
     try {
       this.logger.info(`updating book ${bookId}`);
-      const updatedBook = await BookModel.findByIdAndUpdate(bookId, book, {
-        new: true,
-      });
+      const updatedBook = await BookModel.findByIdAndUpdate(
+        bookId,
+        { title },
+        {
+          new: true,
+        },
+      );
       this.logger.debug(`book updated: ${bookId}`);
       return updatedBook;
     } catch (error) {

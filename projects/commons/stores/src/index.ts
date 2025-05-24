@@ -1,2 +1,2 @@
 export * from "./connect";
-export * from "./models/book";
+export * from "./models";
