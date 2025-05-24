@@ -102,6 +102,7 @@ CLIENT_ID=book-service
     * Observability:- Integrate Prometheus + Grafana for logs, alerts on failure metrics
     * Retry Logic:- Implement retry queues or dead-letter support for Kafka
     * API Evolution:- Add versioning to GraphQL schema (via modules or federation)
+    * Reduce Latency:- Redia caache to GraphQl API 
     * Traceability:- Add OpenTelemetry for distributed tracing
 
 ## Who do I talk to?
