@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { IBook } from "@abstractions/index";
 import { ReviewSchema } from "./review";
 

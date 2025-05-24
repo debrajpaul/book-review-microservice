@@ -7,10 +7,7 @@ export interface IBookService {
   create(title: string): Promise<IBook | null>;
   update(bookId: string | Types.ObjectId, book: IBook): Promise<IBook | null>;
   delete(bookId: string | Types.ObjectId): Promise<IBook | null>;
-  addReview(
-    bookId: string | Types.ObjectId,
-    review: IReview,
-  ): Promise<void>;
+  addReview(bookId: string | Types.ObjectId, review: IReview): Promise<void>;
   emitReview(
     bookId: string | Types.ObjectId,
     review: IReview,

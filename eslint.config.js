@@ -2,7 +2,9 @@ import js from "@eslint/js";
 import pluginTs from "@typescript-eslint/eslint-plugin";
 import parserTs from "@typescript-eslint/parser";
 import pluginJest from "eslint-plugin-jest";
+import globals from "globals";
 
+const { node, jest: jestGlobals } = globals;
 /** @type {import("eslint").FlatConfig[]} */
 export default [
   js.configs.recommended,
@@ -15,6 +17,9 @@ export default [
         project: "./tsconfig.json",
         tsconfigRootDir: process.cwd(),
         sourceType: "module",
+      },
+      globals: {
+        ...node,
       },
     },
     plugins: {
@@ -32,7 +37,10 @@ export default [
       jest: pluginJest,
     },
     languageOptions: {
-      globals: pluginJest.environments.globals.globals,
+      globals: {
+        ...jestGlobals,
+        ...node,
+      },
     },
     rules: {
       "jest/no-disabled-tests": "warn",

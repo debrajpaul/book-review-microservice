@@ -1,7 +1,7 @@
 {
   "name": "projects/processor",
   "version": "1.0.0",
-  "description": "",
+  "description": "Kafka consumer (adds verified reviews)",
   "scripts": {
     "test": "jest",
     "lint": "eslint src --ext .ts",
@@ -10,13 +10,14 @@
     "dev": "ts-node-dev --respawn --transpile-only --require tsconfig-paths/register src/loader.ts"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Debraj <pauldebraj7@gmail.com>",
+  "license": "Apache License 2.0",
   "packageManager": "pnpm@10.11.0",
   "devDependencies": {
     "@eslint/js": "^9.27.0",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
-    "eslint": "^9"
+    "eslint": "^9.27.0",
+    "globals": "^16.1.0"
   }
 }

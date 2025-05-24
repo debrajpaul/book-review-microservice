@@ -1,4 +1,4 @@
-import { KafkaClient, REVIEW_TOPIC } from "@queue/kafka";
+import { KafkaClient } from "@queue/kafka";
 import { BookModel } from "@stores/index";
 import * as winston from "winston";
 import { IBook, IReview, IBookService } from "@abstractions/index";

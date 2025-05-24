@@ -5,26 +5,26 @@ import { logger } from "@utils/logger";
 import { schema } from "./schemas/schema";
 import { connectToMongo } from "@stores/connect";
 import { BookService } from "@services/book-service";
-import { KafkaClient, REVIEW_TOPIC } from '@queue/kafka';
-import "dotenv/config";
+import { KafkaClient, REVIEW_TOPIC } from "@queue/kafka";
+import { config } from "./environment";
 
 const kafkaClient = new KafkaClient(
-  [process.env.KAFKA_BROKERS || "localhost:9092"],
-  "book-service"
+  [`${config.kafkaBrokersHost}:${config.kafkaBrokersPort}`],
+  config.clientId,
 );
 const yoga = createYoga<IGraphQLContext>({
   schema,
   healthCheckEndpoint: "/live",
-  context: () =>{
+  context: () => {
     return {
-       dataSources: {
-        bookService: new BookService(logger,kafkaClient,REVIEW_TOPIC)
-      }
-    }
-  }
+      dataSources: {
+        bookService: new BookService(logger, kafkaClient, REVIEW_TOPIC),
+      },
+    };
+  },
 });
-connectToMongo();
+connectToMongo(config);
 const server = createServer(yoga);
-server.listen(process.env.PORT || 4004, () => {
-  logger.info(`Server is running on http://localhost:${process.env.PORT || 4004}/graphql`);
+server.listen(config.port, () => {
+  logger.info(`Server is running on http://localhost:${config.port}/graphql`);
 });
