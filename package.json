@@ -24,7 +24,6 @@
     "test": "pnpm -r test",
     "coverage": "pnpm -r coverage",
     "lint": "pnpm -r lint",
-    "typecheck": "tsc -b",
     "format": "prettier --write ."
   },
   "dependencies": {
