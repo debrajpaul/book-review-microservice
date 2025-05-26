@@ -5,4 +5,5 @@ export interface IBook extends Document {
   _id: Types.ObjectId;
   title: string;
   reviews: IReview[];
+  createdAt?: Date;
 }

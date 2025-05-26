@@ -24,6 +24,34 @@ A modular, scalable microservice architecture for handling books and reviews usi
     * Winston Logger
         * Standardized logs across all services
         * Tagged by topic, service, and error level
+    
+    * Architecture Diagram
+
+    +-------------------+         Kafka Topic          +------------------+
+    | GraphQL API (Yoga)|  ──────> "review-events" ──> | Kafka Broker     |
+    |  - Zod Validation |                              |                  |
+    |  - Mongoose       |                              +------------------+
+    |  - Prom-client    |
+    +--------+----------+
+            |
+            | MongoDB Write
+            ▼
+    +--------------------+
+    |   MongoDB          |
+    |  - Books + Reviews |
+    +--------------------+
+
+    <-------------------- Prometheus scrapes /metrics ------------------->
+            Grafana visualizes latency, errors, consumer lag
+
+            +------------------------------------------+
+            | Kafka Consumer (Processor Service)       |
+            |  - KafkaJS                               |
+            |  - Mongoose                              |
+            |  - Winston logger                        |
+            |  - Zod Revalidation                      |
+            +------------------------------------------+
+
 
 ## What is this repository for?
 

@@ -23,7 +23,10 @@ export const reviewResolvers = {
             },
           });
         }
-        return ctx.dataSources.bookService.emitReview(bookId, parsed.data);
+        return ctx.dataSources.bookService.emitReview(bookId, {
+          ...parsed.data,
+          id: ctx.dataSources.bookService.generateReviewId(),
+        });
       } catch (error) {
         logger.error(`addReview failed: ${(error as Error).message}`);
         throw new GraphQLError("Internal error while adding review", {

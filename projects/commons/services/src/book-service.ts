@@ -3,6 +3,7 @@ import { BookModel } from "@stores/index";
 import * as winston from "winston";
 import { IBook, IReview, IBookService } from "@abstractions/index";
 import { Types } from "mongoose";
+import { v4 as uuidv4 } from 'uuid';
 
 export class BookService implements IBookService {
   constructor(
@@ -22,7 +23,7 @@ export class BookService implements IBookService {
   public async create(title: string): Promise<IBook | null> {
     try {
       this.logger.info(`creating book ${title}`);
-      const createBook = await BookModel.create({ title });
+      const createBook = await BookModel.create({ title , createdAt: new Date() });
       this.logger.debug(`book created: ${title}`);
       return createBook;
     } catch (error) {
@@ -73,7 +74,12 @@ export class BookService implements IBookService {
         this.logger.error(`book not found: ${bookId}`);
         return;
       }
-      book.reviews.push(review);
+      const isExist = book.reviews.find(r => r.id === review.id);
+      if (isExist) {
+        this.logger.warn(`review already exists for book ${bookId}: ${review.id}`);
+        return;
+      }
+      book.reviews.push({ ...review, createdAt: new Date()});
       await book.save();
       this.logger.debug(`review added to book ${bookId}: ${review.content}`);
       return;
@@ -110,5 +116,9 @@ export class BookService implements IBookService {
       this.logger.error(`addReview failed: ${(error as Error).message}`);
       return null;
     }
+  }
+  
+  public generateReviewId(): string {
+    return uuidv4();
   }
 }

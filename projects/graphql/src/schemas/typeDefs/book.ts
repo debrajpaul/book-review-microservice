@@ -3,6 +3,7 @@ export const bookTypeDefs = /* GraphQL */ `
     id: ID!
     title: String!
     reviews: [Review]
+    createdAt: String
   }
 
   type Query {

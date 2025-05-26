@@ -12,4 +12,5 @@ export interface IBookService {
     bookId: string | Types.ObjectId,
     review: IReview,
   ): Promise<IReview | null>;
+  generateReviewId(): string;
 }

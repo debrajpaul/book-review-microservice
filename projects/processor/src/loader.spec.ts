@@ -14,8 +14,8 @@ jest.mock("./environment", () => ({
   config: {
     kafkaBrokersHost: "localhost",
     kafkaBrokersPort: "9092",
-    clientId: "test-client"
-  }
+    clientId: "test-client",
+  },
 }));
 
 describe("processReviews", () => {
@@ -29,9 +29,9 @@ describe("processReviews", () => {
       subscribe: jest.fn(),
     } as unknown as jest.Mocked<KafkaClient>;
     mockBookService = {
-      addReview: jest.fn()
+      addReview: jest.fn(),
     } as unknown as jest.Mocked<BookService>;
-    
+
     (KafkaClient as jest.Mock).mockImplementation(() => mockKafkaClient);
     (BookService as jest.Mock).mockImplementation(() => mockBookService);
   });
@@ -39,7 +39,7 @@ describe("processReviews", () => {
   it("should initialize services and process reviews successfully", async () => {
     const testPayload = {
       bookId: "123",
-      review: "Great book!"
+      review: "Great book!",
     };
 
     await processReviews();
@@ -47,13 +47,17 @@ describe("processReviews", () => {
     expect(connectToMongo).toHaveBeenCalledWith(config);
     expect(KafkaClient).toHaveBeenCalledWith(
       [`${config.kafkaBrokersHost}:${config.kafkaBrokersPort}`],
-      config.clientId
+      config.clientId,
     );
-    expect(BookService).toHaveBeenCalledWith(logger, mockKafkaClient, REVIEW_TOPIC);
+    expect(BookService).toHaveBeenCalledWith(
+      logger,
+      mockKafkaClient,
+      REVIEW_TOPIC,
+    );
     expect(mockKafkaClient.connectConsumer).toHaveBeenCalled();
     expect(mockKafkaClient.subscribe).toHaveBeenCalledWith(
       REVIEW_TOPIC,
-      expect.any(Function)
+      expect.any(Function),
     );
 
     // Test the callback function
@@ -61,7 +65,7 @@ describe("processReviews", () => {
     await subscribeCallback(testPayload);
     expect(mockBookService.addReview).toHaveBeenCalledWith(
       testPayload.bookId,
-      testPayload.review
+      testPayload.review,
     );
   });
 });

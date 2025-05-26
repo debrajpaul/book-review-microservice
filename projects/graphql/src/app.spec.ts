@@ -5,8 +5,12 @@ import { IGraphQLContext } from "@abstractions/index";
 // Mock BookService
 const mockBookService = {
   emitReview: jest.fn().mockResolvedValue({
-    content: "Excellent read - Verified",
+    id: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+    content: "Excellent read!",
   }),
+  generateReviewId: jest
+    .fn()
+    .mockReturnValue("9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"),
 };
 
 describe("GraphQL addReview mutation", () => {
@@ -29,6 +33,7 @@ describe("GraphQL addReview mutation", () => {
         query: `
           mutation {
             addReview(bookId: "1", review: { content: "Excellent read!" }) {
+              id
               content
             }
           }
@@ -39,9 +44,10 @@ describe("GraphQL addReview mutation", () => {
     const result = await response.json();
 
     expect(result.errors).toBeUndefined();
-    expect(result.data?.addReview.content).toContain("Excellent read");
+    expect(result.data?.addReview.content).toContain("Excellent read!");
     expect(mockBookService.emitReview).toHaveBeenCalledWith("1", {
       content: "Excellent read!",
+      id: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     });
   });
 });
