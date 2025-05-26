@@ -4,7 +4,7 @@ import { KafkaClient, REVIEW_TOPIC } from "@queue/kafka";
 import { BookService } from "@services/book-service";
 import { config } from "./environment";
 
-async function processReviews() {
+export async function processReviews() {
   try {
     connectToMongo(config);
     const kafkaClient = new KafkaClient(

@@ -1,5 +1,5 @@
 {
-  "name": "projects/processor",
+  "name": "processor",
   "version": "1.0.0",
   "description": "Kafka consumer (adds verified reviews)",
   "scripts": {
@@ -12,12 +12,5 @@
   "keywords": [],
   "author": "Debraj <pauldebraj7@gmail.com>",
   "license": "Apache License 2.0",
-  "packageManager": "pnpm@10.11.0",
-  "devDependencies": {
-    "@eslint/js": "^9.27.0",
-    "@typescript-eslint/eslint-plugin": "^8.32.1",
-    "@typescript-eslint/parser": "^8.32.1",
-    "eslint": "^9.27.0",
-    "globals": "^16.1.0"
-  }
+  "packageManager": "pnpm@10.11.0"
 }

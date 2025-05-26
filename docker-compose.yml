@@ -26,30 +26,44 @@ services:
       - type: bind
         source: ./data
         target: /data/db
-  # graphql:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   working_dir: /app/projects/graphql
-  #   command: ["pnpm", "run", "dev"]
-  #   ports:
-  #     - "4005:4005"
-  #   depends_on:
-  #     - kafka
-  #     - mongodb
-  #   environment:
-  #     - MONGO_URI=mongodb://mongo:27017/bookdb
-  #     - KAFKA_BROKERS=kafka:9092
+  graphql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/projects/graphql
+    command: ["pnpm", "run", "dev"]
+    ports:
+      - "4005:4005"
+    depends_on:
+      - kafka
+      - mongodb
+    environment:
+      - PORT=4005
+      - NODE_ENV=dev
+      - LOG_LEVEL=debug
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_DB=bookdb
+      - KAFKA_BROKERS_HOST=kafka
+      - KAFKA_BROKERS_PORT=9092
+      - CLIENT_ID=book-service
 
-  # processor:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   working_dir: /app/projects/processor
-  #   command: ["pnpm", "run", "dev"]
-  #   depends_on:
-  #     - kafka
-  #     - mongodb
-  #   environment:
-  #     - MONGO_URI=mongodb://mongo:27017/bookdb
-  #     - KAFKA_BROKERS=kafka:9092
+  processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/projects/processor
+    command: ["pnpm", "run", "dev"]
+    depends_on:
+      - kafka
+      - mongodb
+    environment:
+      - PORT=4005
+      - NODE_ENV=dev
+      - LOG_LEVEL=debug
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_DB=bookdb
+      - KAFKA_BROKERS_HOST=kafka
+      - KAFKA_BROKERS_PORT=9092
+      - CLIENT_ID=book-service

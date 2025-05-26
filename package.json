@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "A modular, scalable microservice architecture for handling books and reviews.",
   "workspaces": [
-    "projects/graphql",
-    "projects/processor",
+    "projects/graphql/*",
+    "projects/processor/*",
     "projects/commons/*"
   ],
   "repository": {
@@ -19,17 +19,8 @@
   "author": "Debraj <pauldebraj7@gmail.com>",
   "license": "Apache License 2.0",
   "packageManager": "pnpm@10.11.0",
-  "scripts": {
-    "dev": "pnpm --parallel --filter graphql --filter processor run dev",
-    "test": "pnpm -r test",
-    "coverage": "pnpm -r coverage",
-    "lint": "pnpm -r lint",
-    "format": "prettier --write ."
-  },
   "dependencies": {
     "dotenv": "^16.5.0",
-    "graphql": "^16.11.0",
-    "graphql-yoga": "^5.13.4",
     "kafkajs": "^2.2.4",
     "mongoose": "^8.15.0",
     "winston": "^3.17.0",

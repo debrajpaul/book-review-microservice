@@ -1,14 +1,17 @@
+const path = require("path")
+const { pathsToModuleNameMapper } = require("ts-jest");
+const { compilerOptions } = require("./tsconfig.json"); 
+
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  collectCoverage: true,
-  collectCoverageFrom: [
-    "projects/**/src/**/*.{ts,tsx}",
-    "!**/node_modules/**",
-    "!**/dist/**",
-  ],
-  coverageDirectory: "coverage",
+  testMatch: ["**/?(*.)+(spec|test).ts"],
+  moduleFileExtensions: ["ts", "js", "json"],
+  collectCoverage: false,
+  coverageDirectory: path.resolve(__dirname,'./coverage'),
   coverageReporters: ["text", "lcov"],
-  reporters: ["default", "jest-sonar-reporter"],
-  roots: ["<rootDir>/projects"],
+  reporters: ["default"],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: __dirname,
+  }),
 };

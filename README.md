@@ -69,7 +69,7 @@ MONGO_PORT=27017
 MONGO_DB=bookdb
 
 # kafka cred
-KAFKA_BROKERS_HOST=127.0.0.1
+KAFKA_BROKERS_HOST=localhost
 KAFKA_BROKERS_PORT=9092
 CLIENT_ID=book-service
 ```
@@ -102,7 +102,7 @@ CLIENT_ID=book-service
     * Observability:- Integrate Prometheus + Grafana for logs, alerts on failure metrics
     * Retry Logic:- Implement retry queues or dead-letter support for Kafka
     * API Evolution:- Add versioning to GraphQL schema (via modules or federation)
-    * Reduce Latency:- Redia caache to GraphQl API 
+    * Reduce Latency:- Redia caache to GraphQl API
     * Traceability:- Add OpenTelemetry for distributed tracing
 
 ## Who do I talk to?
