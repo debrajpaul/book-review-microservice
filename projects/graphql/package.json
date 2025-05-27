@@ -7,7 +7,7 @@
     "lint": "eslint src --ext .ts",
     "coverage": "jest --coverage",
     "format": "prettier --write .",
-    "dev": "ts-node-dev --respawn --transpile-only --require tsconfig-paths/register src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only --project tsconfig.json --require tsconfig-paths/register src/app.ts"
   },
   "keywords": [],
   "author": "Debraj <pauldebraj7@gmail.com>",

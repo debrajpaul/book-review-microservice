@@ -63,6 +63,7 @@ A modular, scalable microservice architecture for handling books and reviews usi
     │ └── commons/ # Shared code: logger, kafka, services, models
     ├── pnpm-workspace.yaml
     ├── docker-compose.yml
+    ├── package.json
     └── tsconfig.json
 
 ## How do I get set up?
