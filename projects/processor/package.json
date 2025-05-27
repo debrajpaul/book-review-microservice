@@ -1,0 +1,16 @@
+{
+  "name": "processor",
+  "version": "1.0.0",
+  "description": "Kafka consumer (adds verified reviews)",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "coverage": "jest --coverage",
+    "format": "prettier --write .",
+    "dev": "ts-node-dev --respawn --transpile-only --require tsconfig-paths/register src/loader.ts"
+  },
+  "keywords": [],
+  "author": "Debraj <pauldebraj7@gmail.com>",
+  "license": "Apache License 2.0",
+  "packageManager": "pnpm@10.11.0"
+}

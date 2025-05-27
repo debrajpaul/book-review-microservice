@@ -1,0 +1,46 @@
+{
+  "name": "book-review-microservice",
+  "version": "1.0.0",
+  "description": "A modular, scalable microservice architecture for handling books and reviews.",
+  "workspaces": [
+    "projects/graphql/*",
+    "projects/processor/*",
+    "projects/commons/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:debrajpaul/book-review-microservice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/debrajpaul/book-review-microservice/issues"
+  },
+  "homepage": "https://github.com/debrajpaul/book-review-microservice#readme",
+  "keywords": [],
+  "author": "Debraj <pauldebraj7@gmail.com>",
+  "license": "Apache License 2.0",
+  "packageManager": "pnpm@10.11.0",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "kafkajs": "^2.2.4",
+    "mongoose": "^8.15.0",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0",
+    "zod": "^3.25.20"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.19",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.27.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "globals": "^16.1.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.3.4",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
+  }
+}
