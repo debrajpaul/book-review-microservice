@@ -1,4 +1,4 @@
 packages:
-  - projects/graphql/*
-  - projects/processor/*
-  - projects/commons/*s
+  - projects/graphql
+  - projects/processor
+  - projects/commons/*
